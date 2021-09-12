@@ -17,7 +17,7 @@ on:
     types: [created]
 
 env:
-  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  PROJECT_ID: ${{ secrets.project_id }}
   GKE_CLUSTER: cluster-1    # TODO: update to cluster name
   GKE_ZONE: us-central1-c   # TODO: update to cluster zone
   DEPLOYMENT_NAME: gke-test # TODO: update to deployment name
@@ -36,8 +36,8 @@ jobs:
     # Setup gcloud CLI
     - uses: google-github-actions/setup-gcloud@v0.2.0
       with:
-        service_account_key: ${{ secrets.GKE_SA_KEY }}
-        project_id: ${{ secrets.GKE_PROJECT }}
+        service_account_key: ${{ secrets.private_key_id }}
+        project_id: ${{ secrets.project_id }}
 
     # Configure Docker to use the gcloud command-line tool as a credential
     # helper for authentication
@@ -47,9 +47,9 @@ jobs:
     # Get the GKE credentials so we can deploy to the cluster
     - uses: google-github-actions/get-gke-credentials@v0.2.1
       with:
-        cluster_name: ${{ env.GKE_CLUSTER }}
-        location: ${{ env.GKE_ZONE }}
-        credentials: ${{ secrets.GKE_SA_KEY }}
+       #cluster_name: ${{ env.GKE_CLUSTER }}
+        #location: ${{ env.private_key_id }}
+        credentials: ${{ secrets.private_key_id }}
 
     # Build the Docker image
     - name: Build
